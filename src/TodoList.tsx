@@ -16,6 +16,7 @@ type PropsType = {
     addTask: (title: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
     filter: FilterValuesType
+    removeTodoList: (id: string) => void
 }
 
 export function TodoList(props: PropsType) {
@@ -56,7 +57,11 @@ export function TodoList(props: PropsType) {
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>{props.title}
+            <button onClick={() => {
+                props.removeTodoList(props.id)
+            }}>X</button>
+            </h3>
             <div>
                 <input value={newTaskTitle}
                        onChange={onNewTitleChangeHandler}

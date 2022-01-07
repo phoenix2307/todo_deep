@@ -28,7 +28,6 @@ function App() {
         let newTasks = [newTask, ...tasks]
         tasksObj[todoListId] = newTasks
         setTasksObj({...tasksObj})
-
     }
 
     function changeStatus(taskId: string, isDone: boolean, todoListId: string) {
@@ -46,7 +45,14 @@ function App() {
             todoList.filter = value;
             setTodoLists([...todoLists])
         }
+    }
 
+    function removeTodoList(todoListId: string) {
+        debugger
+        todoLists = todoLists.filter(tl => tl.id !== todoListId)
+        setTodoLists(todoLists)
+        delete tasksObj[todoListId]
+        setTasksObj({...tasksObj})
     }
 
     //
@@ -54,10 +60,10 @@ function App() {
     const todoListId1 = v1()
     const todoListId2 = v1()
 
-    const [todoLists, setTodoLists] = useState<Array<TodoListType>>(
+    let [todoLists, setTodoLists] = useState<Array<TodoListType>>(
         [
-            {id: v1(), title: 'What to learn', filter: 'active'},
-            {id: v1(), title: 'What to buy', filter: 'completed'}
+            {id: todoListId1, title: 'What to learn', filter: 'active'},
+            {id: todoListId2, title: 'What to buy', filter: 'completed'}
         ]
     )
 
@@ -99,6 +105,7 @@ function App() {
                             addTask={addTask}
                             changeTaskStatus={changeStatus}
                             filter={tl.filter}
+                            removeTodoList={removeTodoList}
                         />
                     )
                 })
